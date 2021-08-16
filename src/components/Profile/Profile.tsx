@@ -1,6 +1,9 @@
 import React from 'react';
-class Profile extends React.Component {
-    render(): JSX.Element {
+type MyState = {
+    count: React.Component;
+  };
+class Profile extends React.Component<{},MyState> {
+    render() {
         return(
         <div className="profile">
             Profile
