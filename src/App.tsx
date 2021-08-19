@@ -3,14 +3,21 @@ import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 import LogInForm from './FormRegistration';
+import Dialogs from './components/Dialogs/Dialogs'
+import { BrowserRouter, Route } from "react-router-dom";
 function App() {
   return (
-    <div className="app-wrapper">
-      <LogInForm/>
-      <Header/>
-      <Navbar/>
-      <Profile/>
+    <BrowserRouter>
+      <div className="app-wrapper">
+        <Header />
+        <Navbar />
+        <div className="app-wrapper-content">
+          <Route path='/login' component={LogInForm} />
+          <Route path='/dialogs' component={Dialogs} />
+          <Route path='/profile' component={Profile} />
+        </div>
       </div>
+    </BrowserRouter>
   );
 }
 

@@ -1,8 +1,9 @@
 import React from 'react';
+import classes from './Header.module.css';
 class Header extends React.Component {
     render(): JSX.Element {
         return (
-        <header className="header">
+        <header className={classes.header}>
             MyNetwork
         </header>
         );

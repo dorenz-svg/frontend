@@ -2,20 +2,12 @@
   display: grid;
   grid-template-areas: 
   "h h"
-  "p n"
+  "c n"
   ;
   grid-template-rows: 60px 1fr;
   grid-template-columns: 10fr 2fr;
 }
-.header{
-  grid-area: h;
-  background-color: aqua;
-}
-.nav{
-  grid-area:n;
-  background-color: blueviolet;
-}
-.profile{
-grid-area: p;
-background-color: darkgoldenrod;
+.app-wrapper-content{
+grid-area: c;
+background-color: rgb(160, 123, 28);
 }

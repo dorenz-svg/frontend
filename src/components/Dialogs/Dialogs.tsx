@@ -1,7 +1,7 @@
 import React from 'react';
-interface MyState  {
+interface MyState {
   };
-class Profile extends React.Component<any,MyState> {
+class Dialogs extends React.Component<any,MyState> {
     render() {
         return(
         <div className="profile">
@@ -10,4 +10,4 @@ class Profile extends React.Component<any,MyState> {
         );
     }
 }
-export default Profile;
+export default Dialogs;
