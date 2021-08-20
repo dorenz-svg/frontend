@@ -1,7 +1,7 @@
 import React from 'react';
 interface MyState {
   };
-class Dialogs extends React.Component<any,MyState> {
+class Dialogs extends React.Component<{},MyState> {
     render() {
         return(
         <div className="profile">
