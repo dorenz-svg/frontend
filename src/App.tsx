@@ -7,7 +7,7 @@ import Dialogs from './components/Dialogs/Dialogs'
 import { BrowserRouter, Route } from "react-router-dom";
 function App() {
   return (
-    <Authorization isLoggedIn={false}/>
+    <Authorization isLoggedIn={localStorage.getItem('Token')!==null ? true : false}/>
   );
 }
 function Authorization(props:{isLoggedIn:boolean}){

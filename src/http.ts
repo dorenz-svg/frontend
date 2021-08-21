@@ -25,22 +25,8 @@ export const http = async <RESB, REQB = undefined>(
     request.headers.set('authorization', `bearer ${config.accessToken}`);
   }
   const response = await fetch(request);
-  if (response.ok) {
-    const body = await response.json();
-    return { ok: response.ok, body };
-  } else {
-    logError(request, response);
-    return { ok: response.ok };
-  }
-};
-
-const logError = async (request: Request, response: Response) => {
-  const contentType = response.headers.get('content-type');
-  let body: any;
-  if (contentType && contentType.indexOf('application/json') !== -1) {
-    body = await response.json();
-  } else {
-    body = await response.text();
-  }
-  console.error(`Error requesting ${request.method} ${request.url}`, body);
+  const body = await response.json();
+  return {
+    ok: response.ok, body
+  };
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { http } from './http';
+import { logIn, registrate } from './AuthorizationData';
 interface StateRegistration {
     username: string,
 };
@@ -7,19 +7,15 @@ interface StateLogIn {
     email: string,
     password: string,
 };
-interface DataServer {
-    Token: string,
-    UserName: string,
-}
-class AuthorizationForm extends React.Component<{}, StateLogIn & StateRegistration & {isRegistrationForm:boolean} > {
-    constructor(props:{}) {
+class AuthorizationForm extends React.Component<{}, StateLogIn & StateRegistration & { isRegistrationForm: boolean }> {
+    constructor(props: {}) {
         super(props);
-       this.state={
-           isRegistrationForm:false,
-           password:'',
-           email:'',
-           username:''
-    };   
+        this.state = {
+            isRegistrationForm: false,
+            password: '',
+            email: '',
+            username: ''
+        };
     }
     changeEmail = (event: React.SyntheticEvent) => {
         let target = event.target as HTMLInputElement;
@@ -35,22 +31,28 @@ class AuthorizationForm extends React.Component<{}, StateLogIn & StateRegistrati
     }
     handleSubmit = async (event: React.SyntheticEvent) => {
         event.preventDefault();
-        let temp: string;
-        if(this.state.isRegistrationForm){
-            temp= await registrate(this.state);
+        let temp: string | undefined;
+        if (this.state.isRegistrationForm) {
+            temp = await registrate(this.state);
         }
-        else{
-            temp=await logIn(this.state);
+        else {
+            temp = await logIn(this.state);
         }
-        alert(temp);
+        if (temp !== undefined) {
+            localStorage.setItem('Token', temp);
+        } else {
+
+        }
     }
     renderRegistrationForm(isRegistrationForm: boolean | undefined) {
-        if (isRegistrationForm){
+        if (isRegistrationForm) {
             return (
-                <label>
-                    Username:
-                    <input type="text" onChange={this.changeUsername} />
-                </label>
+                <div>
+                    <label>
+                        Username:
+                        <input type="text" onChange={this.changeUsername} />
+                    </label>
+                </div>
             );
         }
     }
@@ -58,52 +60,27 @@ class AuthorizationForm extends React.Component<{}, StateLogIn & StateRegistrati
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
+                    <h1>{this.state.isRegistrationForm === true ? 'Registration' : 'Sign in'}</h1>
                     {this.renderRegistrationForm(this.state.isRegistrationForm)}
-                    <label>
-                        Email:
-                        <input type="text" onChange={this.changeEmail} />
-                    </label>
-                    <label>
-                        Password:
-                        <input type="text" onChange={this.changePassword} />
-                    </label>
-                    <input type="submit" value="Отправить" />
+                    <div>
+                        <label>
+                            Email:
+                            <input type="text" onChange={this.changeEmail} />
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Password:
+                            <input type="password" onChange={this.changePassword} />
+                        </label>
+                    </div>
+                    <div>
+                        <input type="submit" value="Отправить" />
+                    </div>
                 </form>
             </div>
         );
     }
 }
-const registrate = async (request: StateLogIn & StateRegistration): Promise<string> => {
-    const result = await http<DataServer, StateLogIn & StateRegistration>({
-        path: '/account/registration',
-        method: 'post',
-        body: {
-            email: request.email,
-            password: request.password,
-            username: request.username,
-        }
-    });
-    if (result.ok && result.body) {
-        return result.body.Token;
-        ;
-    } else {
-        return "что то не так";
-    }
-};
-const logIn = async (request: StateLogIn): Promise<string> => {
-    const result = await http<DataServer, StateLogIn>({
-        path: '/account/login',
-        method: 'post',
-        body: {
-            email: request.email,
-            password: request.password,
-        }
-    });
-    if (result.ok && result.body) {
-        return result.body.Token;
-        ;
-    } else {
-        return "что то не так";
-    }
-};
+
 export default AuthorizationForm;
