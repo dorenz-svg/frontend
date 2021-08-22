@@ -11,7 +11,11 @@ interface LogInRequest{
 interface RegistrationRequest{
     username:string
 }
-export const registrate = async (request: LogInRequest & RegistrationRequest): Promise<string | undefined> => {
+export interface Answer{
+    ok:boolean,
+    message?:string
+}
+export const registrate = async (request: LogInRequest & RegistrationRequest): Promise<Answer> => {
     const result = await http<DataServer, LogInRequest & RegistrationRequest>({
         path: '/account/registration',
         method: 'post',
@@ -22,13 +26,13 @@ export const registrate = async (request: LogInRequest & RegistrationRequest): P
         }
     });
     if (result.ok && result.body) {
-        return result.body.Token;
+        return {ok:true,message:result.body.Token};
         ;
     } else {
-        return result.body?.message;
+        return {ok:false,message:result.body?.message};
     }
 };
-export const logIn = async (request: LogInRequest): Promise<string | undefined> => {
+export const logIn = async (request: LogInRequest): Promise<Answer> => {
     const result = await http<DataServer, LogInRequest>({
         path: '/account/login',
         method: 'post',
@@ -38,9 +42,8 @@ export const logIn = async (request: LogInRequest): Promise<string | undefined> 
         }
     });
     if (result.ok && result.body) {
-        return result.body.Token;
-        ;
+        return {ok:true,message:result.body.Token};
     } else {
-        return result.body?.message;
+        return {ok:false,message:result.body?.message};
     }
 };
