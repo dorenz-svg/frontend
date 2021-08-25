@@ -19,7 +19,7 @@ class AuthorizationForm extends React.Component<{}, MyState> {
     constructor(props: {}) {
         super(props);
         this.state = {
-            isRegistrationForm: false,
+            isRegistrationForm: true,
             emailDirty:false,
             passwordDirty:false,
             usernameDirty:false,
@@ -81,12 +81,11 @@ class AuthorizationForm extends React.Component<{}, MyState> {
         if (isRegistrationForm) {
             return (
                 <>               
-                <div>
+                <p>
                     <label>
-                        Username:
-                        <input onBlur={e=>this.blurHandler(e)} name='username' type="text" onChange={this.changeUsername} />
+                        <input className={classes.inputs} placeholder='UserName' onBlur={e=>this.blurHandler(e)} name='username' type="text" onChange={this.changeUsername} />
                     </label>
-                </div>
+                </p>
                 </>
             );
         }
@@ -107,29 +106,25 @@ class AuthorizationForm extends React.Component<{}, MyState> {
     }
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <h1>{this.state.isRegistrationForm === true ? 'Registration' : 'Sign in'}</h1>
+            <div className={classes.centered}>
+                <form  onSubmit={this.handleSubmit}>
+                    <h1 className={classes.textcenter}>{this.state.isRegistrationForm === true ? 'Registration' : 'Sign in'}</h1>
                     <div>{this.state.messageServer}</div>
                     <div className={classes.error}>{this.state.usernameDirty && this.state.usernameError}</div>
                     {this.renderRegistrationForm(this.state.isRegistrationForm)}
                     <div className={classes.error}>{this.state.emailDirty && this.state.emailError}</div>
-                    <div>
+                    <p >
                         <label>
-                            Email:
-                            <input name='email' onBlur={e=>this.blurHandler(e)} type="text" onChange={this.changeEmail} />
+                            <input className={classes.inputs} placeholder='Email' name='email' onBlur={e=>this.blurHandler(e)} type="text" onChange={this.changeEmail} />
                         </label>
-                    </div>
+                    </p>
                     <div className={classes.error}>{this.state.passwordDirty && this.state.passwordError}</div>
-                    <div>
+                    <p>
                         <label>
-                            Password:
-                            <input name='password' onBlur={e=>this.blurHandler(e)} type="password" onChange={this.changePassword} />
+                            <input className={classes.inputs} name='password' placeholder='Password' onBlur={e=>this.blurHandler(e)} type="password" onChange={this.changePassword} />
                         </label>
-                    </div>
-                    <div>
-                        <input type="submit" value="Отправить" />
-                    </div>
+                    </p>
+                        <button type="submit">Отправить</button>
                 </form>
             </div>
         );
