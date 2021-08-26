@@ -4,10 +4,15 @@
   "h h"
   "c n"
   ;
-  grid-template-rows: 60px 1fr;
+  grid-template-rows: 50px 1fr;
   grid-template-columns: 10fr 2fr;
 }
 .app-wrapper-content{
 grid-area: c;
 background-color: rgb(160, 123, 28);
 }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  }

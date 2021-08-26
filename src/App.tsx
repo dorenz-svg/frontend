@@ -5,6 +5,7 @@ import Profile from './components/Profile/Profile';
 import AuthorizationForm from './components/Authorization/AuthorizationForm';
 import Dialogs from './components/Dialogs/Dialogs'
 import { BrowserRouter, Route } from "react-router-dom";
+import React, { useState } from 'react';
 function App() {
   return (
     <Authorization isLoggedIn={sessionStorage.getItem('Token')!==null ? true : false}/>
@@ -12,10 +13,19 @@ function App() {
 }
 function Authorization(props:{isLoggedIn:boolean}){
   const isLoggedIn = props.isLoggedIn;
+  const[isRegistarionForm,setRegistrationForm]=useState(false);
+  const handleChangeForm=(e:React.SyntheticEvent)=>{
+    let target = e.target as HTMLButtonElement;
+    if(target.name==='sign'){
+      setRegistrationForm(false);
+    }else{
+      setRegistrationForm(true);
+    }
+  }
   if(isLoggedIn){
     return (<BrowserRouter>
       <div className="app-wrapper">
-        <Header />
+        <Header isLoggedIn={isLoggedIn} onChangeForm={handleChangeForm} />
         <Navbar />
         <div className="app-wrapper-content">
           <Route path='/dialogs' component={Dialogs} />
@@ -24,7 +34,10 @@ function Authorization(props:{isLoggedIn:boolean}){
       </div>
     </BrowserRouter>);
   }else{
-    return (<AuthorizationForm/>);
+    return (<div className="app-wrapper">
+    <Header isLoggedIn={isLoggedIn} onChangeForm={handleChangeForm}/>
+    <AuthorizationForm isRegistrationForm={isRegistarionForm}/>
+    </div>);
   }
 }
 export default App;

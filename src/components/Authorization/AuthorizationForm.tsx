@@ -12,14 +12,15 @@ interface MyState{
     passwordDirty: boolean,
     emailError:string,
     passwordError:string
-    isRegistrationForm: boolean,
     messageServer?:string | undefined
 }
-class AuthorizationForm extends React.Component<{}, MyState> {
-    constructor(props: {}) {
+interface MyProps{
+    isRegistrationForm:boolean
+}
+class AuthorizationForm extends React.Component<MyProps, MyState> {
+    constructor(props:MyProps) {
         super(props);
         this.state = {
-            isRegistrationForm: true,
             emailDirty:false,
             passwordDirty:false,
             usernameDirty:false,
@@ -62,7 +63,7 @@ class AuthorizationForm extends React.Component<{}, MyState> {
         event.preventDefault();
         let temp: Answer | undefined;
         if (this.state.emailDirty && this.state.passwordDirty &&!this.state.passwordError &&!this.state.emailError) {
-            if (this.state.isRegistrationForm) {
+            if (this.props.isRegistrationForm) {
                 if (this.state.username !== '') {
                     temp = await registrate(this.state);
                 }
@@ -75,12 +76,15 @@ class AuthorizationForm extends React.Component<{}, MyState> {
             } else if(temp!==undefined && temp.ok === false) {
                 this.setState(() => ({ messageServer: temp?.message }));
             }
+        }else{
+            this.setState(() => ({ emailDirty: true,passwordDirty: true,usernameDirty: true }));
         }
     }
     renderRegistrationForm(isRegistrationForm: boolean | undefined) {
         if (isRegistrationForm) {
             return (
-                <>               
+                <>
+                <div className={classes.error}>{this.state.usernameDirty && this.state.usernameError}</div>               
                 <p>
                     <label>
                         <input className={classes.inputs} placeholder='UserName' onBlur={e=>this.blurHandler(e)} name='username' type="text" onChange={this.changeUsername} />
@@ -108,10 +112,9 @@ class AuthorizationForm extends React.Component<{}, MyState> {
         return (
             <div className={classes.centered}>
                 <form  onSubmit={this.handleSubmit}>
-                    <h1 className={classes.textcenter}>{this.state.isRegistrationForm === true ? 'Registration' : 'Sign in'}</h1>
-                    <div>{this.state.messageServer}</div>
-                    <div className={classes.error}>{this.state.usernameDirty && this.state.usernameError}</div>
-                    {this.renderRegistrationForm(this.state.isRegistrationForm)}
+                    <h1 className={classes.textcenter}>{this.props.isRegistrationForm === true ? 'Registration' : 'Sign in'}</h1>
+                    <div>{this.state.messageServer}</div>                    
+                    {this.renderRegistrationForm(this.props.isRegistrationForm)}
                     <div className={classes.error}>{this.state.emailDirty && this.state.emailError}</div>
                     <p >
                         <label>
@@ -124,7 +127,7 @@ class AuthorizationForm extends React.Component<{}, MyState> {
                             <input className={classes.inputs} name='password' placeholder='Password' onBlur={e=>this.blurHandler(e)} type="password" onChange={this.changePassword} />
                         </label>
                     </p>
-                        <button type="submit">Отправить</button>
+                        <button className={classes.buttonsubmit} type="submit">Отправить</button>                        
                 </form>
             </div>
         );
