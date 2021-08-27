@@ -2,7 +2,7 @@
   display: grid;
   grid-template-areas: 
   "h h"
-  "c n"
+  "n c"
   ;
   grid-template-rows: 50px 1fr;
   grid-template-columns: 10fr 2fr;

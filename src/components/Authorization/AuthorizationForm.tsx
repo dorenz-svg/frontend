@@ -15,7 +15,8 @@ interface MyState{
     messageServer?:string | undefined
 }
 interface MyProps{
-    isRegistrationForm:boolean
+    isRegistrationForm:boolean,
+    onChangeLogIn:()=>void
 }
 class AuthorizationForm extends React.Component<MyProps, MyState> {
     constructor(props:MyProps) {
@@ -73,6 +74,7 @@ class AuthorizationForm extends React.Component<MyProps, MyState> {
             }
             if (temp!==undefined && temp.ok === true) {
                 sessionStorage.setItem('Token', temp.message!);
+                this.props.onChangeLogIn();
             } else if(temp!==undefined && temp.ok === false) {
                 this.setState(() => ({ messageServer: temp?.message }));
             }
