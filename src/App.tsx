@@ -4,10 +4,10 @@ import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 import AuthorizationForm from './components/Authorization/AuthorizationForm';
 import Dialogs from './components/Dialogs/Dialogs'
-import { BrowserRouter, Route ,Redirect} from "react-router-dom";
+import { Route ,Redirect} from "react-router-dom";
 import React, { useState } from 'react';
-
-function Authorization() {
+import { isPropertySignature } from 'typescript';
+function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isRegistarionForm, setRegistrationForm] = useState(false);
   const handleChangeLogIn = () => {
@@ -26,7 +26,8 @@ function Authorization() {
       }
     }
     if (isLoggedIn) {
-      return (<BrowserRouter>
+      return (
+        <>
         <div className="app-wrapper">
           <Header isLoggedIn={isLoggedIn} onChangeForm={handleChangeForm} />
           <Navbar />
@@ -36,7 +37,7 @@ function Authorization() {
           </div>
         </div>
         <Redirect from='/' to='/home'/>
-      </BrowserRouter>);
+        </>);
     } else {
       return (<div className="app-wrapper">
         <Header isLoggedIn={isLoggedIn}  onChangeForm={handleChangeForm} />
@@ -44,4 +45,4 @@ function Authorization() {
       </div>);
     }
   }
-export default Authorization;
+export default App;

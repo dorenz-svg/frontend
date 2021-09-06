@@ -35,7 +35,7 @@ class AuthorizationForm extends React.Component<MyProps, MyState> {
     }
     changeEmail = (event: React.SyntheticEvent) => {
         let target = event.target as HTMLInputElement;
-        if (!target.value.match("^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$")) {
+        if (!target.value.match("^([a-z0-9_-]+.)*[a-z0-9_-]+@[a-z0-9_-]+(.[a-z0-9_-]+)*.[a-z]{2,6}$")) {
             this.setState(() => ({ emailError: 'Email не корректный' }));
         } else {
             this.setState(() => ({ emailError: '' }));
