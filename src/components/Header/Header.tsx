@@ -1,15 +1,12 @@
 import React from 'react';
 import classes from './Header.module.css';
-interface MyProps{
-    onChangeForm: (e:React.SyntheticEvent)=>void,
-    isLoggedIn:boolean
-}
+import {MyProps} from '../../AppContainer';
 class Header extends React.Component<MyProps,{}> {
     renderButtons(){
-        if(!this.props.isLoggedIn){
+        if(!this.props.isAuthorized){
             return(<>
-            <button name='sign' className={classes.buttonswitch} onClick={e=>this.props.onChangeForm(e)}>Sign in</button>
-            <button name='regist' className={classes.buttonswitch} onClick={e=>this.props.onChangeForm(e)}>Registration</button>
+            <button name='sign' className={classes.buttonswitch} >Sign in</button>
+            <button name='regist' className={classes.buttonswitch} >Registration</button>
             </>);
         }
     }

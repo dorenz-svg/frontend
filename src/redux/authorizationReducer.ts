@@ -35,7 +35,7 @@ const inialization: State = {
     usernameError: EMPTY_ERROR,
     emailError: EMPTY_ERROR,
     passwordError: EMPTY_ERROR,
-    isAuthorized: false,
+    isAuthorized: sessionStorage.getItem('Token')===null?false:true,
     isRegistrationForm: false,
     messageServer: ''
 }
