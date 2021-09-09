@@ -1,3 +1,7 @@
+import { logIn, RegistrationRequest, registrate } from './../AuthorizationData';
+import { Dispatch } from 'redux';
+import { LogInRequest } from "../AuthorizationData";
+
 const CHANGE_USER_NAME = "CHANGE_USER_NAME";
 const CHANGE_PASSWORD = "CHANGE_PASSWORD";
 const CHANGE_EMAIL = "CHANGE_EMAIL";
@@ -105,6 +109,25 @@ const authorizationReducer = (state: State = inialization, action: Action): Stat
         default:
             return state;
 
+    }
+}
+export const logInThunkCreator=(state:LogInRequest)=>{
+    return (dispatch:Dispatch<Action>)=>{
+        logIn(state).then(
+            x=>x.ok?
+            dispatch(UpdateIsAuthorizedCreator()):
+            dispatch(UpdateMessageServer(x.message!)));
+    }
+}
+export const registrationThunkCreator =(state:RegistrationRequest)=>{
+    return (dispatch:Dispatch<Action>)=>{
+        registrate(state).then(
+            x=> {if(x.ok && x.message!==undefined){
+                sessionStorage.setItem('Token',x.message)
+                dispatch(UpdateIsAuthorizedCreator())
+            }else if(x.message!==undefined){
+                dispatch(UpdateMessageServer(x.message))
+            }});
     }
 }
 export const UpdateUserNameCreator = (text: string, isDirty: boolean): Action => ({ type: CHANGE_USER_NAME, username: text, isUsernameDirty: isDirty })

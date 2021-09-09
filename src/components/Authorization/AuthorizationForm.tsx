@@ -1,13 +1,16 @@
 import React from 'react';
 import classes from './Authorization.module.css';
 import {State} from '../../redux/authorizationReducer';
+import {LogInRequest,RegistrationRequest}from '../../AuthorizationData';
+import {Dispatch} from 'redux';
+import {Action} from '../../redux/authorizationReducer';
 interface MyProps{
     state:State,
     blurHandler:(e:React.SyntheticEvent)=>void
     changeUsername:(e:React.SyntheticEvent)=>void,
     handleSubmit:(e:React.SyntheticEvent)=>void,
     changeEmail:(e:React.SyntheticEvent)=>void,
-    changePassword:(e:React.SyntheticEvent)=>void
+    changePassword:(e:React.SyntheticEvent)=>void,
 }
 const AuthorizationForm:React.FC<MyProps> = (props) => {
     const renderRegistrationForm=(isRegistrationForm: boolean | undefined)=> {

@@ -4,19 +4,19 @@ interface DataServer {
     UserName: string,
     message?:string
 }
-interface LogInRequest{
+export interface LogInRequest{
     email: string,
     password: string,
 }
-interface RegistrationRequest{
+export interface RegistrationRequest extends LogInRequest{
     username:string
 }
 export interface Answer{
     ok:boolean,
     message?:string
 }
-export const registrate = async (request: LogInRequest & RegistrationRequest): Promise<Answer> => {
-    const result = await http<DataServer, LogInRequest & RegistrationRequest>({
+export const registrate = async (request:  RegistrationRequest): Promise<Answer> => {
+    const result = await http<DataServer, RegistrationRequest>({
         path: '/account/registration',
         method: 'post',
         body: {

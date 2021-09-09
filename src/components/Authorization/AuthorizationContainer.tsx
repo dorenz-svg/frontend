@@ -2,9 +2,8 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import AuthorizationForm from './AuthorizationForm';
 import { AppStateType } from '../../redux/redux-store'
-import { Answer } from '../../AuthorizationData';
-import { logIn, registrate } from '../../AuthorizationData';
-import {UpdateEmailCreator,UpdateIsAuthorizedCreator, UpdatePasswordCreator, UpdateUserNameCreator, State, UpdateIsRegistrationForm, UpdateMessageServer, UpdateEmailDirty, UpdatePasswordDirty, UpdateUsernameDirty } from '../../redux/authorizationReducer';
+import { Answer, LogInRequest,RegistrationRequest } from '../../AuthorizationData';
+import {Action,registrationThunkCreator,logInThunkCreator,UpdateEmailCreator,UpdateIsAuthorizedCreator, UpdatePasswordCreator, UpdateUserNameCreator, State, UpdateIsRegistrationForm, UpdateMessageServer, UpdateEmailDirty, UpdatePasswordDirty, UpdateUsernameDirty } from '../../redux/authorizationReducer';
 
 interface MyProps {
     state: State,
@@ -12,11 +11,11 @@ interface MyProps {
     onChangePassword: (text: string, isDirty: boolean) => void,
     onChangeUsername: (text: string, isDirty: boolean) => void,
     onChangeRegistrationForm: () => void,
-    onChangeMessageServer: (text: string) => void,
     onChangeEmailDirty: () => void,
     onChangePasswordDirty: () => void,
     onChangeUsernameDirty: () => void,
-    onChangeIsAuthorizedCreator:()=>void
+    logIn:(state: LogInRequest) => void,
+    registrate:(state: RegistrationRequest) => void
 }
 const AuthorizationContainer: React.FC<MyProps> = (props) => {
 
@@ -32,23 +31,16 @@ const AuthorizationContainer: React.FC<MyProps> = (props) => {
         let target = event.target as HTMLInputElement;
         props.onChangePassword(target.value, true);
     }
-    const handleSubmit = async (event: React.SyntheticEvent) => {
+    const handleSubmit = (event: React.SyntheticEvent) => {
         event.preventDefault();
-        let temp: Answer | undefined;
         if (props.state.isEmailDirty && props.state.isPasswordDirty && !props.state.passwordError && !props.state.emailError) {
             if (props.state.isRegistrationForm) {
                 if (props.state.username !== '') {
-                    temp = await registrate({ email: props.state.email!, password: props.state.password!, username: props.state.username! });
+                    props.registrate({ email: props.state.email!, password: props.state.password!, username: props.state.username! });
                 }
             }
             else {
-                temp = await logIn({ email: props.state.email!, password: props.state.password! });
-            }
-            if (temp !== undefined && temp.ok === true) {
-                props.onChangeIsAuthorizedCreator();
-                sessionStorage.setItem('Token', temp.message!);
-            } else if (temp !== undefined && temp.ok === false) {
-                props.onChangeMessageServer(temp?.message!);
+                props.logIn({ email: props.state.email!, password: props.state.password! });
             }
         } else {
             props.onChangeEmailDirty();
@@ -93,9 +85,9 @@ export default connect(mapStateToProps, {
     onChangePassword: UpdatePasswordCreator,
     onChangeUsername: UpdateUserNameCreator,
     onChangeRegistrationForm: UpdateIsRegistrationForm,
-    onChangeMessageServer: UpdateMessageServer,
     onChangeEmailDirty: UpdateEmailDirty,
     onChangePasswordDirty: UpdatePasswordDirty,
     onChangeUsernameDirty: UpdateUsernameDirty,
-    onChangeIsAuthorizedCreator:UpdateIsAuthorizedCreator
+    logIn:logInThunkCreator,
+    registrate:registrationThunkCreator
 })(AuthorizationContainer);
