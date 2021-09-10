@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 import AuthorizationForm from './AuthorizationForm';
 import { AppStateType } from '../../redux/redux-store'
-import { Answer, LogInRequest,RegistrationRequest } from '../../AuthorizationData';
-import {Action,registrationThunkCreator,logInThunkCreator,UpdateEmailCreator,UpdateIsAuthorizedCreator, UpdatePasswordCreator, UpdateUserNameCreator, State, UpdateIsRegistrationForm, UpdateMessageServer, UpdateEmailDirty, UpdatePasswordDirty, UpdateUsernameDirty } from '../../redux/authorizationReducer';
+import {  LogInRequest,RegistrationRequest } from '../../api/auth-api';
+import {registrationThunkCreator,logInThunkCreator,UpdateEmailCreator,UpdateIsAuthorizedCreator, UpdatePasswordCreator, UpdateUserNameCreator, State, UpdateIsRegistrationForm, UpdateMessageServer, UpdateEmailDirty, UpdatePasswordDirty, UpdateUsernameDirty } from '../../redux/authorizationReducer';
 
 interface MyProps {
     state: State,

@@ -1,6 +1,5 @@
-import { logIn, RegistrationRequest, registrate } from './../AuthorizationData';
+import { authApi,LogInRequest, RegistrationRequest } from '../api/auth-api';
 import { Dispatch } from 'redux';
-import { LogInRequest } from "../AuthorizationData";
 
 const CHANGE_USER_NAME = "CHANGE_USER_NAME";
 const CHANGE_PASSWORD = "CHANGE_PASSWORD";
@@ -113,17 +112,21 @@ const authorizationReducer = (state: State = inialization, action: Action): Stat
 }
 export const logInThunkCreator=(state:LogInRequest)=>{
     return (dispatch:Dispatch<Action>)=>{
-        logIn(state).then(
-            x=>x.ok?
-            dispatch(UpdateIsAuthorizedCreator()):
-            dispatch(UpdateMessageServer(x.message!)));
+        authApi.logIn(state).then(
+            x=> {
+                if(x.Token!==undefined){
+                sessionStorage.setItem('Token',x.Token)
+                dispatch(UpdateIsAuthorizedCreator())
+            }else if(x.message!==undefined){
+                dispatch(UpdateMessageServer(x.message))
+            }});
     }
 }
 export const registrationThunkCreator =(state:RegistrationRequest)=>{
     return (dispatch:Dispatch<Action>)=>{
-        registrate(state).then(
-            x=> {if(x.ok && x.message!==undefined){
-                sessionStorage.setItem('Token',x.message)
+        authApi.registrate(state).then(
+            x=> {if(x.Token!==undefined){
+                sessionStorage.setItem('Token',x.Token)
                 dispatch(UpdateIsAuthorizedCreator())
             }else if(x.message!==undefined){
                 dispatch(UpdateMessageServer(x.message))
