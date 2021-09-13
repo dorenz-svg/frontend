@@ -1,18 +1,5 @@
-.app-wrapper{
-  display: grid;
-  grid-template-areas: 
-  "h h"
-  "n c"
-  ;
-  grid-template-rows: 50px 1fr;
-  grid-template-columns: 10fr 2fr;
+@import '~antd/dist/antd.css';
+
+.h100 {
+    height: calc(100vh - 64px);
 }
-.app-wrapper-content{
-grid-area: c;
-background-color: rgb(160, 123, 28);
-}
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  }

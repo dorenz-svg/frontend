@@ -1,8 +1,7 @@
 import React from 'react';
 import classes from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
-class Navbar extends React.Component {
-    render(): JSX.Element {
+const Navbar:React.FC=()=> {
         return(
         <nav className={classes.nav}>
             <div><NavLink to="/profile">Profile</NavLink></div>
@@ -12,6 +11,5 @@ class Navbar extends React.Component {
             <div><NavLink to="/settings">Settings</NavLink></div>
         </nav>
         );
-    }
 }
 export default Navbar;

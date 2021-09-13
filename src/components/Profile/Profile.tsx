@@ -1,13 +1,9 @@
 import React from 'react';
-interface MyState  {
-  };
-class Profile extends React.Component<{},MyState> {
-    render() {
+const Profile:React.FC=()=> {
         return(
         <div className="profile">
             Profile
         </div>
         );
-    }
 }
 export default Profile;
