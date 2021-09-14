@@ -8,7 +8,6 @@ import { RouteNames } from '../../router';
 const Header: React.FC = () => {
     const isAuth= useSelector((state:AppStateType)=>state.auth.isAuth);
     const isRegistrationForm= useSelector((state:AppStateType)=>state.auth.isRegistration)
-    const username= useSelector((state:AppStateType)=>state.auth.authData.username);
     const router = useHistory();
     const dispatch= useDispatch();
     const logout=()=>{
@@ -22,9 +21,6 @@ const Header: React.FC = () => {
             {isAuth
                     ?
                     <>
-                        <div style={{color: 'white'}}>
-                            {username}
-                        </div>
                         <Menu theme="dark" mode="horizontal" selectable={false} >
 
                             <Menu.Item
