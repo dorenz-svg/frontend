@@ -1,15 +1,12 @@
+import { Layout } from "antd";
 import React from "react";
-import { Layout } from 'antd';
-import Header from './components/Header/Header';
 import AppRouter from './AppRouter';
-import './App.css';
+import Header from "./components/Header/Header";
+
 export const App: React.FC = () => {
     return (
         <Layout>
-            <Header />
-            <Layout.Content>
-                <AppRouter />
-            </Layout.Content>
-        </Layout>
-    );
+        <Layout.Header><Header/></Layout.Header>
+        <AppRouter />
+        </Layout>);
 };

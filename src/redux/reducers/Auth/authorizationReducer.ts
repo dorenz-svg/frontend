@@ -1,12 +1,11 @@
 import { AppDispatch } from '../../index';
 import { authApi} from '../../../api/auth-api';
-import { AuthActionEnum, Registration, SetAuthDataAction, SetIsAuthAction, SetIsLoadingAction, SetErrorAction, SetIsRegistrationAction } from './types';
+import { AuthActionEnum, SetIsAuthAction, SetIsLoadingAction, SetAuthErrorAction, SetIsRegistrationAction } from './types';
 
 export const AuthActionCreators={
-    setAuthData:(data:Registration):SetAuthDataAction=>({type:AuthActionEnum.SET_AUTH_DATA,payload:data}),
     setIsAuth:(auth:boolean):SetIsAuthAction=>({type:AuthActionEnum.SET_IS_AUTH,payload:auth}),
     setIsLoading:(payload:boolean):SetIsLoadingAction=>({type:AuthActionEnum.SET_IS_LOADING,payload}),
-    setError:(payload:string):SetErrorAction=>({type:AuthActionEnum.SET_ERROR,payload}),
+    setError:(payload:string):SetAuthErrorAction=>({type:AuthActionEnum.SET_ERROR,payload}),
     setRegistration:(payload:boolean):SetIsRegistrationAction=>({type:AuthActionEnum.SET_IS_REGISTRATIONFORM,payload}),
     logIn:(email:string,password:string)=>async (dispatch:AppDispatch)=>{
         try{

@@ -20,15 +20,15 @@ interface Request{
 }
 export const dialogsApi={
     getDialogs(){
-        return instance.get<DataDialogs[]>('/dialogs/get').then(res=>res.data)
+        return instance.get<DataDialogs[]>('dialogs/get').then(res=>res.data)
     },
     createDialog(request:Request){
-        return instance.post('/dialogs',{ userId:request.userId,name:request.name})
+        return instance.post('dialogs',{ userId:request.userId,name:request.name})
     },
     deleteDialog(){
-        return instance.delete('/dialogs')
+        return instance.delete('dialogs')
     },
     getUsers(id:number){
-        return instance.get<DataUsersDialog[]>(`/dialogs/getusers?id=${id}`).then(res=>res.data)
+        return instance.get<DataUsersDialog[]>(`dialogs/getusers?id=${id}`).then(res=>res.data)
     }
 }

@@ -11,6 +11,7 @@ export interface RegistrationRequest extends LogInRequest{
   username:string
 }
 interface DataServer {
+  id:string,
   Token?: string,
   UserName?: string,
   message?:string

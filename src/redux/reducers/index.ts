@@ -1,4 +1,6 @@
-import auth from'./Auth'
+import auth from'./Auth';
+import profile from'./Profile'
 export default{
-    auth
+    auth,
+    profile
 }

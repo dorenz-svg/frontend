@@ -1,15 +1,12 @@
-import { AuthAction, AuthActionEnum, AuthState, Registration } from "./types";
+import { AuthAction, AuthActionEnum, AuthState} from "./types";
 const initialState: AuthState = {
-    isAuth: false,
+    isAuth: true,
     error: '',
     isLoading: false,
-    authData: {} as Registration,
     isRegistration: false
 }
 export default function authReducer(state = initialState, action: AuthAction): AuthState {
     switch (action.type) {
-        case AuthActionEnum.SET_AUTH_DATA:
-            return { ...state, authData: action.payload }
         case AuthActionEnum.SET_ERROR:
             return { ...state, error: action.payload }
         case AuthActionEnum.SET_IS_LOADING:
