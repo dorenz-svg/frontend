@@ -37,7 +37,7 @@ const Header: React.FC = () => {
                             onClick={() => dispatch(AuthActionCreators.setRegistration(!isRegistrationForm))}
                             key={1}
                         >
-                            Registration
+                            LogIn
                         </Menu.Item>
                     </Menu>
                     :<Menu theme="dark" mode="horizontal" selectable={false} >
@@ -45,7 +45,7 @@ const Header: React.FC = () => {
                         onClick={() =>{debugger; dispatch(AuthActionCreators.setRegistration(!isRegistrationForm))}}
                         key={1}
                     >
-                        LogIn
+                        Registration
                     </Menu.Item>
                 </Menu>
                 }

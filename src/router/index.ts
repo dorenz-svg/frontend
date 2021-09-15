@@ -10,13 +10,13 @@ export interface IRoute {
 
 export enum RouteNames {
     AUTH = '/auth',
-    PROFILE = '/'
+    PROFILE = '/profile'
 }
 
 export const publicRoutes: IRoute[] = [
-    {path: RouteNames.AUTH, exact: true, component:Profile }
+    {path: RouteNames.AUTH, exact: true, component: Auth}
 ]
 
 export const privateRoutes: IRoute[] = [
-    {path: RouteNames.PROFILE, exact: true, component:Auth }
+    {path: RouteNames.PROFILE, exact: true, component: Profile}
 ]

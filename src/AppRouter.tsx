@@ -6,7 +6,8 @@ import { Layout } from "antd";
 import Navbar from "./components/Navbar/Navbar";
 function AppRouter() {
   const isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
-    return (!isAuth?<Layout >
+    return (isAuth?<Layout >
+      <Layout.Sider theme="light"><Navbar/></Layout.Sider>
       <Layout.Content>
         <Switch>
           {privateRoutes.map(route =>
@@ -21,7 +22,6 @@ function AppRouter() {
       </Layout.Content>
     </Layout>:
     <Layout >
-      <Layout.Sider><Navbar/></Layout.Sider>
       <Layout.Content>
         <Switch>
           {publicRoutes.map(route =>
