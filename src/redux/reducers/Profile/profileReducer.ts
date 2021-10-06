@@ -1,4 +1,4 @@
-import { profileApi } from './../../../api/profile';
+import { profileApi } from '../../../api/profile-api';
 import { ProfileActionEnum, SetProfileErrorAction, ProfileState, SetProfileDataAction } from './types';
 import { AppDispatch } from './../../index';
 export const profileActionCreator={

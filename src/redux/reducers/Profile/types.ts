@@ -2,12 +2,14 @@ export interface IUser{
     username:string,
     id:string,
     phone:string,
-    email:string
+    email:string,
+    profilePhoto:string
 }
 export interface Post{
     id:number,
     text:string,
-    date:Date
+    photosUrl:Array<string>,
+    time:Date
 }
 export interface ProfileState{
 user:IUser,
