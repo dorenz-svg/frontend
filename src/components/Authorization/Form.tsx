@@ -16,7 +16,7 @@ export const AuthForm: FC = () => {
         if (isRegistation)
             dispatch(AuthActionCreators.registration(email,password,username))
         else
-            dispatch(AuthActionCreators.logIn(password,email))
+            dispatch(AuthActionCreators.logIn(email, password))
     }
     return (
         <Form onFinish={submit}>

@@ -11,7 +11,7 @@ export const Post:React.FC<MyProps>=(props:MyProps)=>{
     const [likes, setLikes] = useState(0);
     const [dislikes, setDislikes] = useState(0);
     const [action, setAction] = useState('');
-    const {username}= useTypedSelector(x=>x.profile.user);
+    const {UserName: userName}= useTypedSelector(x=>x.profile.user);
     const like = () => {
       setLikes(1);
       setDislikes(0);
@@ -41,7 +41,7 @@ export const Post:React.FC<MyProps>=(props:MyProps)=>{
     return (
         <Comment
           actions={actions}
-          author={<a>{username || 'han'}</a>}
+          author={<a>{userName || 'han'}</a>}
           avatar={
             <Avatar
               src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"

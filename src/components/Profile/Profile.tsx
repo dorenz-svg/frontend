@@ -8,7 +8,6 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import TextArea from 'rc-textarea';
 const Profile: React.FC = () => {
     const {getProfile} = useActions();
-    const {posts} = useTypedSelector(x=>x.profile)
     const {user} = useTypedSelector(x=>x.profile);
     const {isLoading}= useTypedSelector(x=>x.auth);
     const [text,setText]=useState('');
@@ -16,26 +15,16 @@ const Profile: React.FC = () => {
         getProfile();
     }, []);
     const submit=()=>{
-
+        var temp = user.Email;
     }
+    
     return (
         <div>
-            <Avatar size={64} icon={<UserOutlined />} />
+            <Avatar size={64} icon={<UserOutlined />} src={user.ProfilePhoto} />
             <Descriptions title="User Info" layout="vertical">
-                <Descriptions.Item label="UserName">{user.username ||'Zhou Maomao'}</Descriptions.Item>
-                <Descriptions.Item label="Telephone">{user.phone ||'1810000000'}</Descriptions.Item>
-                <Descriptions.Item label="Email">{user.email ||'nove48@yandex.ru'}</Descriptions.Item>
+                <Descriptions.Item label="UserName">{user.UserName}</Descriptions.Item>
+                <Descriptions.Item label="Email">{user.Email}</Descriptions.Item>
             </Descriptions>
-            <Form onFinish={submit}>
-                <Form.Item>
-                    <TextArea value={text} onChange={x=>setText(x.target.value)}/>
-                </Form.Item>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit" loading={isLoading}>Добавить</Button>
-                </Form.Item>
-            </Form>
-            <Post text='alax' time={moment().fromNow()}/>
-            {posts && posts.map(x=><Post key={x.id} text='alax' time={moment().fromNow()}/>)}
         </div>
     );
 }

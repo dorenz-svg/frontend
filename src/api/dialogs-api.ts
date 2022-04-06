@@ -15,7 +15,7 @@ export interface DataUsersDialog{
     phone:string
 }
 interface Request{
-    userId:string,
+    userName:string,
     name:string
 }
 export const dialogsApi={
@@ -23,7 +23,7 @@ export const dialogsApi={
         return instance.get<DataDialogs[]>('dialogs/get').then(res=>res.data)
     },
     createDialog(request:Request){
-        return instance.post('dialogs',{ userId:request.userId,name:request.name})
+        return instance.post('dialogs',{ userId:request.userName,name:request.name})
     },
     deleteDialog(){
         return instance.delete('dialogs')

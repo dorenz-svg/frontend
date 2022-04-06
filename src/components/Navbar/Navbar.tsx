@@ -6,7 +6,6 @@ const Navbar:React.FC=()=> {
         return(
         <Menu>
             <Menu.Item><NavLink to="/profile">Profile</NavLink></Menu.Item>
-            <Menu.Item><NavLink to="/news">News</NavLink> </Menu.Item>
             <Menu.Item><NavLink to="/friends">Friends</NavLink></Menu.Item>
             <Menu.Item><NavLink to="/messages">Messages</NavLink></Menu.Item>
             <Menu.Item><NavLink to="/settings">Settings</NavLink></Menu.Item>         

@@ -1,19 +1,11 @@
 export interface IUser{
-    username:string,
-    id:string,
-    phone:string,
-    email:string,
-    profilePhoto:string
-}
-export interface Post{
-    id:number,
-    text:string,
-    photosUrl:Array<string>,
-    time:Date
+    UserName:string,
+    Id:string,
+    Email?:string,
+    ProfilePhoto?:string
 }
 export interface ProfileState{
 user:IUser,
-posts: Array<Post>,
 error:string
 }
 export enum ProfileActionEnum{
@@ -22,7 +14,7 @@ SET_ERROR='SET_ERROR'
 }
 export interface SetProfileDataAction{
     type:ProfileActionEnum.SET_USER,
-    payload:ProfileState
+    payload:IUser
 }
 export interface SetProfileErrorAction{
     type:ProfileActionEnum.SET_ERROR,
